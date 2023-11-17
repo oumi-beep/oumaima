@@ -1,0 +1,73 @@
+import pygame
+import sys
+
+# Paramètres de la tour
+DISQUE_COULEUR = (255, 0, 0)
+FOND_COULEUR = (0, 0, 0)
+LARGEUR_FENETRE = 800
+HAUTEUR_FENETRE = 400
+LARGEUR_TIGE = 10
+HAUTEUR_TIGE = 300
+BASE_TIGE = 100
+
+# Fonction pour résoudre le problème des Tours de Hanoï
+def tour_hanoi(n, départ, auxiliaire, arrivée):
+    if n == 1 :
+        déplacer_disque(départ, arrivée) 
+        pygame.display.flip() 
+        pygame.time.delay(500)  # Délai pour l'animation
+        return 
+    tour_hanoi(n - 1, départ, arrivée, auxiliaire)
+    déplacer_disque(départ, arrivée)
+    pygame.display.flip() 
+    pygame.time.delay(500)  # Délai pour l'animation
+    tour_hanoi(n - 1, auxiliaire, départ, arrivée)
+
+# Fonction pour dessiner une tige
+def dessiner_tige(surface, x, couleur):
+    pygame.draw.rect(surface, couleur, (x, HAUTEUR_FENETRE - HAUTEUR_TIGE, LARGEUR_TIGE, HAUTEUR_TIGE))
+
+# Fonction pour dessiner un disque
+def dessiner_disque(surface, x, y, largeur, couleur):
+    pygame.draw.rect(surface, couleur, (x - largeur // 2, y, largeur, 20))
+
+# Fonction pour déplacer un disque d'une tige à une autre
+def déplacer_disque(depart, arrivée):
+    disque = depart.pop()
+    arrivée.append(disque)
+    mise_à_jour_affichage()
+
+# Fonction pour mettre à jour l'affichage
+def mise_à_jour_affichage(): 
+    fenetre.fill(FOND_COULEUR) 
+    for i in range(3):
+        dessiner_tige(fenetre, i * BASE_TIGE + LARGEUR_TIGE // 2, (255, 255, 255))
+        for j, disque in enumerate(tiges[i]):
+            largeur_disque = disque * 30
+            hauteur_disque = HAUTEUR_FENETRE - (j + 1) * 20
+            dessiner_disque(fenetre, i * BASE_TIGE + LARGEUR_TIGE // 2, hauteur_disque, largeur_disque, DISQUE_COULEUR)
+    pygame.display.flip()
+
+# Initialisation de Pygame
+pygame.init()
+fenetre = pygame.display.set_mode((LARGEUR_FENETRE, HAUTEUR_FENETRE))
+pygame.display.set_caption("Tours de Hanoï")
+
+# Initialisation des tiges et des disques
+tiges = [[] for _ in range(3)]
+n_disques = 4  # Nombre de disques
+for i in range(n_disques, 0, -1):
+    tiges[0].append(i)
+mise_à_jour_affichage()
+
+# Résolution du problème des Tours de Hanoï
+tour_hanoi(n_disques, tiges[0], tiges[1], tiges[2])
+
+# Boucle principale
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            pygame.quit()
+            sys.exit()
