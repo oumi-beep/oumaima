@@ -1,0 +1,14 @@
+"""Suppose we have a dictionary D containing names as keys and their associated grades.
+Write a function list_of_ranking(D) that returns a list of names sorted according to their grades.
+D={"kenza:10,'karim':15,'keven':8,'semon':2}
+LoR=listofranking(D)#{'semon','keven','kenza','karim'}
+"""
+def list_of_ranking(D):
+    # Sort names based on their grades in descending order
+    sorted_names = sorted(D.keys(), key=lambda x: D[x], reverse=True)
+    return sorted_names
+
+# Example usage
+D = {"kenza": 10, "karim": 15, "keven": 8, "semon": 2}
+LoR = list_of_ranking(D)
+print(LoR)
