@@ -1,0 +1,28 @@
+def tour_hanoi(n, départ, auxiliaire, arrivée):
+        if n == 1: 
+            # Cas de base : s'il n'y a qu'un disque, déplacez-le de la tige de départ à la tige d'arrivée
+            print(f"Déplacez le disque 1 de la tige {départ} vers la tige {arrivée}")
+            return
+        else:
+            # Étape 1 : Déplacez n-1 disques de la tige de départ à la tige auxiliaire en utilisant la tige d'arrivée comme auxiliaire
+            tour_hanoi(n-1, départ, arrivée, auxiliaire)
+            # Étape 2 : Déplacez le disque n de la tige de départ à la tige d'arrivée
+            print(f"Déplacez le disque {n} de la tige {départ} vers la tige {arrivée}")
+            # Étape 3 : Déplacez à nouveau n-1 disques de la tige auxiliaire (maintenant source) à la tige d'arrivée en utilisant la tige de départ comme auxiliaire
+            tour_hanoi(n-1, auxiliaire, départ, arrivée)
+
+if __name__ == "__main__" :
+    print("         ********************   TOURS DE HANOI   ********************")
+    # Demander à l'utilisateur de saisir le nombre de disques
+    n=int(input("entrer le nombre de disque : "))
+
+    # Tiges de départ 'A', auxiliaire'B' et d'arrivée 'C'
+    départ = "A"
+    auxiliaire = "B"
+    arrivée = "C"
+    # Assurez-vous que l'utilisateur a entré un nombre positif
+    while n<=0 :
+       n=int(input("entrer le nombre de disque : "))
+
+    tour_hanoi(n, départ, auxiliaire, arrivée)
+
