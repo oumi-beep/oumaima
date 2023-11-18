@@ -1,0 +1,10 @@
+"""Write a decorator, vectorize, that transforms the given function f into a new function.
+ The new function should take a list as an argument and apply f to each element of the list."""
+def vetorize(f):
+    def ff(liste):
+        return [f(x) for x in liste] 
+    return ff
+@vetorize
+def f(x):
+    return x*x
+f([1,2,3])
