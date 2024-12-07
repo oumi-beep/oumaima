@@ -4,11 +4,10 @@ D={"kenza:10,'karim':15,'keven':8,'semon':2}
 LoR=listofranking(D)#{'semon','keven','kenza','karim'}
 """
 def list_of_ranking(D):
-    # Sort names based on their grades in descending order
     sorted_names = sorted(D.keys(), key=lambda x: D[x], reverse=True)
     return sorted_names
 
-# Example usage
+# Example 
 D = {"kenza": 10, "karim": 15, "keven": 8, "semon": 2}
 LoR = list_of_ranking(D)
 print(LoR)
